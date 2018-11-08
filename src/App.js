@@ -5,38 +5,24 @@ import Row from "gumdrops/Row";
 import Column from "gumdrops/Column";
 import LoadingDots from "gumdrops/LoadingDots";
 
-import { getImagesByCategory } from "./api/api";
-
 const CategoryForm = lazy(() => import("./components/CategoryForm"));
-const Image = lazy(() => import("./components/Image"));
+const ImageGrid = lazy(() => import("./components/ImageGrid"));
 
 class App extends Component {
     state = {
-        images: [],
+        categoryId: null,
     };
 
     _searchImages = async e => {
         e.preventDefault();
 
         this.setState({
-            images: [],
-        });
-
-        const images = await getImagesByCategory(
-            e.target.elements.category.value,
-        );
-
-        const newImages = images.reduce((acc, item) => {
-            return [...acc, item.url];
-        }, []);
-
-        this.setState({
-            images: newImages,
+            categoryId: e.target.elements.category.value,
         });
     };
 
     render() {
-        const { images } = this.state;
+        const { categoryId } = this.state;
 
         return (
             <LayoutContainer>
@@ -53,13 +39,7 @@ class App extends Component {
                             <CategoryForm onSubmit={this._searchImages} />
                         </Column>
                     </Row>
-                    <Row className="-m-t-3">
-                        {images.map((image, index) => (
-                            <Suspense key={index} fallback={<LoadingDots />}>
-                                <Image src={image} />
-                            </Suspense>
-                        ))}
-                    </Row>
+                    <ImageGrid categoryId={categoryId} />
                 </Suspense>
             </LayoutContainer>
         );

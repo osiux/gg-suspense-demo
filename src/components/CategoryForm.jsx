@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import Button from "gumdrops/Button";
 import FormGroup from "gumdrops/FormGroup";
 import Label from "gumdrops/FormGroupLabel";
 import Select from "gumdrops/Select";
+import LoadingDots from 'gumdrops/LoadingDots';
 
 import { getCategories } from "../api/api";
 
@@ -12,12 +13,8 @@ class CategoryForm extends React.Component {
         categories: [],
     };
 
-    componentDidMount() {
-        this._fetchCategories();
-    }
-
-    _fetchCategories = async () => {
-        const categories = await getCategories();
+    render() {
+        const categories = getCategories();
 
         const mappedCategories = categories.reduce((acc, item) => {
             const category = {
@@ -28,31 +25,27 @@ class CategoryForm extends React.Component {
             return [...acc, category];
         }, []);
 
-        this.setState({
-            categories: mappedCategories,
-        });
-    };
-
-    render() {
         return (
             <form onSubmit={this.props.onSubmit}>
                 <FormGroup>
-                    <Label text="Category" />
-                    <div className="gds-form-group__input-group">
-                        <Select
-                            name="category"
-                            className="gds-form-group__text-input--right-edge"
-                            options={this.state.categories}
-                        />
+                    <Suspense fallback={<LoadingDots />}>
+                        <Label text="Category" />
+                        <div className="gds-form-group__input-group">
+                            <Select
+                                name="category"
+                                className="gds-form-group__text-input--right-edge"
+                                options={mappedCategories}
+                            />
 
-                        <Button
-                            type="submit"
-                            context="primary"
-                            className="gds-button--button-cap"
-                        >
-                            Get Images
-                        </Button>
-                    </div>
+                            <Button
+                                type="submit"
+                                context="primary"
+                                className="gds-button--button-cap"
+                            >
+                                Get Images
+                            </Button>
+                        </div>
+                    </Suspense>
                 </FormGroup>
             </form>
         );
