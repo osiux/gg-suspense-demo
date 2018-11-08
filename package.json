@@ -5,9 +5,9 @@
   "dependencies": {
     "add": "^2.0.6",
     "gumdrops": "^1.6.0",
-    "react": "16.7.0-alpha.0",
+    "react": "^16.7.0-alpha.0",
     "react-cache": "^2.0.0-alpha.0",
-    "react-dom": "16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0",
     "react-scripts": "2.1.1",
     "wretch": "^1.4.2",
     "yarn": "^1.12.3"
