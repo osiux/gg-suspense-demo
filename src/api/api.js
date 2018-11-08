@@ -1,23 +1,24 @@
 import wretch from "wretch";
 
-const API_KEY = "";
-const BASE_URL = "https://api-endpoint.igdb.com/";
-
-const appendHeaders = () => {
-    return next => url => {
-        const options = {
-            headers: {
-                "user-key": API_KEY,
-                accept: "application/json",
-            },
-        };
-
-        return next(url, options);
-    };
-};
+const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = "https://api.thecatapi.com/v1/";
 
 const api = wretch()
-    .middlewares([appendHeaders()])
+    .headers({
+        "x-api-key": API_KEY,
+        "Content-Type": "application/json",
+    })
     .url(BASE_URL);
 
-export default api;
+const getCategories = async () =>
+    api
+        .url("categories")
+        .get()
+        .json();
+const getImagesByCategory = async categoryId =>
+    api
+        .url(`images/search?category_ids=${categoryId}&limit=12`)
+        .get()
+        .json();
+
+export { getCategories, getImagesByCategory };
