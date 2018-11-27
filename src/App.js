@@ -17,7 +17,7 @@ class App extends Component {
                     <Row>
                         <Column md={12}>
                             <h1 className="gds-text--header-lg">
-                                <Link to="/">Home</Link>
+                                <Link to="/">Last.fm Top Artists</Link>
                             </h1>
                         </Column>
                     </Row>

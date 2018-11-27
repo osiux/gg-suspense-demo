@@ -14,13 +14,13 @@ const AlbumsSection = ({ artistId }) => {
     const albums = path(["topalbums", "album"], fetchedAlbums);
 
     return (
-        <Row className="-m-t-3">
+        <Row className="-m-t-3 -p-t-3">
             {albums.map((album, index) => {
                 const image = find(i => i.size === "extralarge", album.image);
                 const logo = prop("#text", image);
 
                 return (
-                    <Column key={index} md={3}>
+                    <Column key={index} md={3} sm={6}>
                         <Suspense fallback={<LoadingDots />}>
                             <Img src={logo} alt={album.name} />
                             <label className="gds-image__label">

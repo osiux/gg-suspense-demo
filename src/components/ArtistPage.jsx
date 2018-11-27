@@ -26,18 +26,15 @@ class ArtistPage extends Component {
         return (
             <Fragment>
                 <Row>
-                    <Column md={3}>
+                    <Column md={3} sm={6}>
                         <Suspense fallback={<LoadingDots />}>
                             <Img src={logo} alt={info.name} />
                         </Suspense>
                     </Column>
-                    <Column md={9}>
+                    <Column md={9} sm={6}>
                         <ul>
                             <li>
                                 <strong>Name:</strong> {info.name}
-                            </li>
-                            <li>
-                                <strong>Bio:</strong> {info.bio.summary}
                             </li>
                             <li>
                                 <strong>Listeners:</strong>{" "}

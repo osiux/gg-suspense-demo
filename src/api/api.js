@@ -27,7 +27,7 @@ const apiResource = unstable_createResource(
 );
 
 const getTopArtists = () =>
-    apiResource.read({ method: "chart.gettopartists", limit: 16 });
+    apiResource.read({ method: "chart.gettopartists", limit: 12 });
 
 const getArtistInfo = artistId =>
     apiResource.read({ method: "artist.getinfo", mbid: artistId });
